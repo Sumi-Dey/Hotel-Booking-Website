@@ -10,6 +10,7 @@ import cors from "cors";
 
 const app = express();
 dotenv.config();
+const PORT = process.env.PORT || 8000;
 
 mongoose.set("strictQuery", false);
 
@@ -21,6 +22,7 @@ try {
   throw error
 }
 };
+
 
 //middlewares
 
@@ -45,7 +47,15 @@ app.use((err,req,res,next)=>{
   })
 })
 
-app.listen(8000,()=>{
+if(process.env.NODE_ENV=="production"){
+  app.use(express.static('client/build'));
+
+  app.get("*", (req, res) =>{
+    res.sendFile(path.resolve(__dirname,'client', 'build', 'index.html'))
+  })
+}
+
+app.listen(PORT,()=>{
     connect();
     console.log('connected with express')
 })
