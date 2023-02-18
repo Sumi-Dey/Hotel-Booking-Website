@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './Hotels.css';
 import photo1 from '../../assets/photo1.jpg';
 import photo2 from '../../assets/photo2.jpg';
@@ -44,12 +44,11 @@ const Hotels = () => {
   ]
   const location = useLocation();
   const id = location.pathname.split("/")[2];
-  const {data,loading,error,reFetchData} = useFetch(`/hotels/find/${id}`);
+  const {data,loading} = useFetch(`/hotels/find/${id}`);
   const {abc,userDetails} = useSelector((state)=>state.search)
   const dayDiff = abc?.dates[0]?.endDate?.getDate()-abc?.dates[0]?.startDate?.getDate();
-  // console.log(userDetails?.user)
   const handleClick = ()=>{
-    if (userDetails?.user) {
+    if (userDetails?.user || userDetails?.register) {
       setOpenModal(true)
     } else {
       navigate("/")
@@ -92,9 +91,9 @@ const Hotels = () => {
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           </div>   
           <div className='rightHotelDetails'>
-            <h4>Perfect for a {dayDiff} nights stay</h4>
+            <h4>Perfect for a {dayDiff?dayDiff:""} nights stay</h4>
             <span className='location'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
-            <span className='srPrice'>${data?.cheapestPrice * dayDiff * abc?.options?.Room} <span style={{fontWeight:"lighter"}}>({dayDiff} nights)</span></span>
+            <span className='srPrice'>${dayDiff?(data?.cheapestPrice * dayDiff * abc?.options?.Room):(data.cheapestPrice)} <span style={{fontWeight:"lighter"}}>({dayDiff?dayDiff:"Per"} nights)</span></span>
             <button className='reserveBtn' onClick={handleClick}>Reserve or Book Now</button>
           </div>
           <div></div>

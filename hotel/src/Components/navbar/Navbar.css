@@ -6,7 +6,7 @@
     /* margin: 0.5rem; */
     background-color: #1b1a1a;
     padding: 5px 64.1px;
-    z-index: 999;
+    /* z-index: 998; */
 }
 .left-nav{
     color: white;
@@ -31,13 +31,24 @@
     background-color: #d7b23a;
 }
 .username{
-    font-weight: 800;
-    font-size: 25px;
+    font-size: 22px;
+    letter-spacing: 1.3px;
     text-transform: capitalize;
     font-family: 'Merriweather', serif;
     color: white;
+    position: relative;
 }
-
+.dropdown-icon{
+    margin: -5px 5px;
+    cursor: pointer;
+}
+.logout{
+    position: absolute;
+    top: 35px;
+    left: -35.5px;
+    font-size: 23px;
+    z-index: 999;
+}
 /* RESPONSIVE **************************************/
 
 @media screen and (max-width:425px) {

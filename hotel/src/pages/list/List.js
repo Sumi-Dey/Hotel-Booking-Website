@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import './List.css';
-import Navbar from '../../Components/navbar/Navbar';
 import { useLocation } from 'react-router-dom';
 import { DateRange } from 'react-date-range';
-import { format } from "date-fns";
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import SearchItem from '../../Components/searchitem/SearchItem';
@@ -19,9 +17,9 @@ const List = () => {
   const [opendates, setOpendates] = useState(false);
   const [min,setMin] = useState(undefined);
   const [max,setMax] = useState(undefined);
-  const {data,loading,error,reFetchData} = useFetch(`/hotels?city=${destination}&min=${min}&max=${max}`);
+  const {data,loading,reFetchData} = useFetch(`/hotels?city=${destination}&min=${min}&max=${max}`);
   const handleClick = ()=>{
-    reFetchData()
+    reFetchData();
   }
   return (
     <div>
@@ -31,7 +29,7 @@ const List = () => {
           <div className='list-form'>
             <div>
               <label>Destination/property name</label>
-              <input type='text' placeholder={destination} />
+              <input type='text' placeholder={destination} onChange={(e)=>setDestination(e.target.value)} />
             </div>
             <div>
               <label>Check-in date</label><br/>
@@ -55,15 +53,15 @@ const List = () => {
                 </div>
                 <div className='optionItem'>
                   <span>Adult</span>
-                  <input type='number' className='inputOption' />
+                  <input type='number' className='inputOption' placeholder={options.Adult} onChange={(e)=>setOptions(e.target.value)} />
                 </div>
                 <div className='optionItem'>
                 <span>Children</span>
-                  <input type='number' className='inputOption' min={0} placeholder={options.Children}/>
+                  <input type='number' className='inputOption' min={0} placeholder={options.Children} onChange={(e)=>setOptions(e.target.value)}/>
                 </div>
                 <div className='optionItem'>
                 <span>Room</span>
-                  <input type='number' className='inputOption' min={1} placeholder={options.Room}/>
+                  <input type='number' className='inputOption' min={1} placeholder={options.Room} onChange={(e)=>setOptions(e.target.value)}/>
                 </div>
               </div>
             </div>
@@ -74,9 +72,12 @@ const List = () => {
         </div>
         {loading?(<div className='list-blank'><Blank /></div>):(<>
         <div className='right-list'>
-          {data.map((item)=>(
+          {data.length>1?
+          (data.map((item)=>(
           <SearchItem item={item} key={item._id}  />
-          ))}
+          ))):
+          (<div className='noData'><div>Sorry right now we have no hotels or homestays in this location,</div><div> we will try to connect with this cities soon</div></div>)
+          }
         </div>
         </>)}
       </div>

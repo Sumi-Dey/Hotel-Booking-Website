@@ -27,6 +27,7 @@
 }
 .right-list{
     flex: 3;
+    position: relative;
 }
 .optionItem{
     display: flex;
@@ -62,7 +63,14 @@
 .list-blank{
     flex: 3;
 }
-
+.noData{
+    text-align: center;
+    font-size: 25px;
+    color: #1b1a1ae3;
+    box-shadow: 10px 10px 10px 10px #c0b5b559;
+    padding: 30px;
+    background-color: #dbbe6024;
+}
 /* RESPONSIVE *******************************************/
 @media screen and (max-width:768px) {
     .list {

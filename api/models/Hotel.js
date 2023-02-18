@@ -10,6 +10,10 @@ const HotelSchema = new mongoose.Schema({
         type:String,
         require:true
     },
+    category:{
+        type:String,
+        require:true
+    },
     city:{
         type:String,
         require:true

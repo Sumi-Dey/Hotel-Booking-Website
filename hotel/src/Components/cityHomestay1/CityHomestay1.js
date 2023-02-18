@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { HiLocationMarker } from 'react-icons/hi';
 import useFetch from '../../hooks/useFetch';
+import { Link } from 'react-router-dom';
 
 const CityHomestay1 = () => {
 const settings = {
@@ -21,8 +22,8 @@ const {data,loading,error} = useFetch("/hotels?city=Darjeeling&limit=5");
     <div className='cityhomestay1'>
       <Slider {...settings} >
         {data.map((prod)=>(
-          <div className="card city-card" key={prod._id}>
-          <img src={prod.photos} className="card-img-top" alt="..." />
+            <div className="card city-card" key={prod._id}>
+          <Link to={`/hotel/${prod._id}`}><img src={prod.photos} className="card-img-top" alt="..." /></Link>
           <div className="card-body">
             <h5 className="card-title city-card-title">{prod.name}</h5>
             <p className="card-subtitle"><HiLocationMarker /> Darjeeling</p>
@@ -31,7 +32,7 @@ const {data,loading,error} = useFetch("/hotels?city=Darjeeling&limit=5");
               <p> <button>{prod.rating}</button> </p>
               <p>{prod.reviews} reviews</p>
             </div>
-            <button href="/" className="card-button">Reserve this homestay</button>
+            <Link to={`/hotel/${prod._id}`}><button className="card-button">Reserve this homestay</button></Link>
           </div>
         </div>
         ))}       

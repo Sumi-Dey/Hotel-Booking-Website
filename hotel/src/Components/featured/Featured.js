@@ -1,51 +1,31 @@
 import React from 'react';
 import './Featured.css';
-import darjeelingfeatured from '../../assets/darjeelingfeatured.jpg';
-import goafeatured from '../../assets/goafeatured.png';
-import arakuImage from '../../assets/arakuImage.png';
 import useFetch from '../../hooks/useFetch';
 import Blank from '../Blank/Blank';
-
+import { Link } from 'react-router-dom';
 const Featured = () => {
-  const {data,loading,error} = useFetch("/hotels/countByCity?cities=Kolkata,Goa,Darjeeling");
+  const { data, loading } = useFetch("/hotels/getAllCity");
   return (
-    <div className='featured'>
-    { loading? (
-      <div className='feature-blank'><Blank /> </div>
-    ):
-    (<>   
-      <div className='featuredItem'>
-        <div className='featuredImage'>
-            <img src={darjeelingfeatured} alt='...' />
-        </div>
-        <div className='featuredTitle'>
-            <span>Kolkata</span><br />
-            <span>{data[0]} Properties</span>
-        </div>
-      </div>
-      <div className='featuredItem'>
-        <div className='featuredImage'>
-            <img src={goafeatured} alt='...' />
-        </div>
-        <div className='featuredTitle'>
-            <span>Goa</span><br />
-            <span>{data[1]} Properties</span>
-        </div>
-      </div>
-      <div className='featuredItem'>
-        <div className='featuredImage'>
-            <img src={arakuImage} alt='...' />
-        </div>
-        <div className='featuredTitle'>
-            <span>Darjeeling</span><br />
-            <span>{data[2]} Properties</span>
-        </div>
-      </div>
-  </>)
-  }
-</div>
+    <>
+      {loading ? (
+        <div className='feature-blank'><Blank /> </div>
+      ) :
+        (<div className='featured'>
+          {data?.map((item)=>(           
+          <div className='featuredItem' key={item._id}>
+            <div className='featuredImage' >
+              <Link to={`/hotels/countByCity?city=${item.city}`}><img src={item.Photos[0]} alt='...'/></Link>
+            </div>
+            <div className='featuredTitle'>
+              <span>{item.city}</span><br />
+              <span>{item.hotelCount} Properties</span>
+            </div>
+          </div>
+         ))}
+        </div>)
+      }
+    </>
   )
 }
 
-
-export default Featured
+export default Featured;

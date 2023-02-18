@@ -1,3 +1,25 @@
+.browseProducts{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.browseImg{
+    width: 315.6px;
+    height: 200px;
+}
+.browseProducts>div{
+    position: relative;
+}
+.cat{
+    position: absolute;
+    top: 120px;
+    color: white;
+    left: 54px;
+    font-size: 20px;
+}
+
+/* 
+
 .browseProducts {
     display: flex;
     flex-direction: column;
@@ -125,4 +147,4 @@
         font-size: 1.4rem;
     }
 
-}
+}  */

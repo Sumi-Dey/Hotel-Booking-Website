@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { loginFailed, loginStart, loginSuccess } from '../../context api/Context';
 import './Login.css';
+import LoginImg from "../../assets/Login.png"
 
 const Login = () => {
 
@@ -25,6 +26,7 @@ const Login = () => {
       const res = await axios.post("/auth/login", credentials);
       dispatch(loginSuccess(res.data));
       navigate("/");
+      document.location.reload();
     } catch (error) {
       dispatch(loginFailed(error.response.data));
     }
@@ -32,12 +34,22 @@ const Login = () => {
   return (
     <div className='main-login'>
       <div className='login'>
-        <input type='text' id='username' className='login-input' placeholder='Username' onChange={handleChange} />
-        <input type='password' id='password' className='login-input' placeholder='Password' onChange={handleChange} />
-        <button type='submit' className='btn' onClick={handleClick} id="liveAlertBtn">Submit </button>
-        {err?(
-    <div className='err'>{err} </div>):<div></div>}
+        <div className='left-login'><img src={LoginImg} alt='...' /></div>
+        <div className='right-login'>
+          {err ? (
+            <div className='err'>{err} </div>) : <div></div>}
+          <h2>Sign in or create an account</h2>
+          <input type='text' id='username' className='login-input' placeholder='Username' onChange={handleChange} />
+          <input type='password' id='password' className='login-input' placeholder='Password' onChange={handleChange} />
+          <button type='submit' style={{ width: "18rem", margin: "0" }} className='btn' onClick={handleClick} id="liveAlertBtn">Submit </button>
+
+          <div className='signtxt'>By signing in or creating an account, you agree with our <span>Terms & conditions</span> and <span>Privacy statement</span></div>
+          <hr />
+          <div className='copyright'>All rights reserved.
+            Copyright (2006 - 2023) - Booking.com™</div>
+        </div>
       </div>
+
     </div>
   )
 }

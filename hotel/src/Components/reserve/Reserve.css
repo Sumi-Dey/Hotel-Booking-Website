@@ -16,6 +16,12 @@
     padding: 20px;
     position: relative;
 }
+.noRoom{
+    background-color: white;
+    padding: 20px;
+    position: relative;
+    font-size: 20px;
+}
 .rItem{
     display: flex;
     gap: 40px;
@@ -32,6 +38,13 @@
     top: 9px;
     position: absolute;
     right: 14px;
+    font-size: 25px;
+    cursor: pointer;
+}
+.noRoomClose{
+    top: 0.9px;
+    position: absolute;
+    right: 1.2px;
     font-size: 25px;
     cursor: pointer;
 }
